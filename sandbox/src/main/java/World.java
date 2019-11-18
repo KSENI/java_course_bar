@@ -7,7 +7,7 @@ public class World {
     }
 
     private static void printPointAndDistance(Point point1, Point point2) {
-        double distance = Point.distance(point1, point2);
+	    double distance = point1.distance(point2);
         System.out.println("Первая точка: x=" + point1.x + ", y=" + point1.y +
                 " Вторая точка: x=" + point2.x + ", y=" + point2.y + " Расстояние между точками = " + distance);
     }
