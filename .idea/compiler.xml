@@ -2,6 +2,10 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="address.main" target="1.8" />
+      <module name="address.test" target="1.8" />
+      <module name="addressbook.main" target="1.8" />
+      <module name="addressbook.test" target="1.8" />
       <module name="sandbox.main" target="1.8" />
       <module name="sandbox.test" target="1.8" />
     </bytecodeTargetLevel>

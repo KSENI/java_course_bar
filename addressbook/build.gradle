@@ -1,0 +1,20 @@
+apply plugin: 'java'
+
+repositories{
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.testng:testng:7.0.0'
+}
+
+dependencies{
+    implementation 'org.testng:testng:7.0.0'
+    implementation 'org.seleniumhq.selenium:selenium-opera-driver:4.0.0-alpha-3'
+    implementation 'org.seleniumhq.selenium:selenium-firefox-driver:4.0.0-alpha-3'
+    implementation 'org.seleniumhq.selenium:selenium-support:4.0.0-alpha-3'
+}
+
+test {
+    useTestNG()
+}
