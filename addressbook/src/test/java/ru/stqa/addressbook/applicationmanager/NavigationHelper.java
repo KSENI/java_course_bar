@@ -19,4 +19,8 @@ public class NavigationHelper extends BaseHelper {
     public void goToCreatePerson() {
         click(By.linkText("add new"));
     }
+
+    public void goToHomePageOnYellowBlock() {
+        click(By.linkText("home page"));
+    }
 }

@@ -1,6 +1,7 @@
-package ru.stqa.addressbook.tests;
+package ru.stqa.addressbook.tests.groupTests;
 
 import org.testng.annotations.Test;
+import ru.stqa.addressbook.tests.BaseTest;
 
 public class DeleteGroupTest extends BaseTest {
 

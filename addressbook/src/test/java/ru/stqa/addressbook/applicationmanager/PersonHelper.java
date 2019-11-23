@@ -39,4 +39,21 @@ public class PersonHelper extends BaseHelper {
         type(By.name("phone2"), personData.getHomePhone2());
         type(By.name("notes"), personData.getNotes());
     }
+
+    public void initModificationPerson() {
+        click(By.xpath("//img[@alt='Edit']"));
+    }
+
+    public void submitModifiedPerson() {
+        click(By.name("update"));
+    }
+
+    public void selectFirstPerson() {
+        click(By.xpath("//td/input"));
+    }
+
+    public void deleteSelectedPerson() {
+        click(By.xpath("//input[@value='Delete']"));
+        wd.switchTo().alert().accept();
+    }
 }

@@ -1,9 +1,10 @@
-package ru.stqa.addressbook.tests;
+package ru.stqa.addressbook.tests.groupTests;
 
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.tests.BaseTest;
 
-public class GroupCreationTests extends BaseTest {
+public class CreationGroupTests extends BaseTest {
 
     @Test
     public void testGroupCreation() {

@@ -1,7 +1,8 @@
-package ru.stqa.addressbook.tests;
+package ru.stqa.addressbook.tests.personTests;
 
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.PersonData;
+import ru.stqa.addressbook.tests.BaseTest;
 
 public class CreatePersonTest extends BaseTest {
 
