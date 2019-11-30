@@ -1,12 +1,13 @@
 package ru.stqa.addressbook.tests;
 
+import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import ru.stqa.addressbook.applicationmanager.ApplicationManager;
 
 public class BaseTest {
 
-    protected final ApplicationManager app = new ApplicationManager();
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.IE);
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {

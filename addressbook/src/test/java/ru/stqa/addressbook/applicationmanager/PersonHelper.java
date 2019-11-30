@@ -1,11 +1,11 @@
 package ru.stqa.addressbook.applicationmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 import ru.stqa.addressbook.model.PersonData;
 
 public class PersonHelper extends BaseHelper {
-    public PersonHelper(FirefoxDriver wd) {
+    public PersonHelper(WebDriver wd) {
         super(wd);
     }
 
