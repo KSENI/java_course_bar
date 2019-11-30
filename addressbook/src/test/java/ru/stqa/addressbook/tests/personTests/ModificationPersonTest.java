@@ -8,6 +8,13 @@ public class ModificationPersonTest extends BaseTest {
     @Test
     public void testModificationPerson() {
         app.getNavigationHelper().goToHomePage();
+        if (!app.getPersonHelper().isHavePerson()) {
+            app.getNavigationHelper().goToCreatePerson();
+            app.getPersonHelper().createPerson(new PersonData("First Name", null, null, null,
+                    null, null, null, null, null, null, null, null, null,
+                    null, null, null, null, null, null, null));
+            app.getNavigationHelper().goToHomePage();
+        }
         app.getPersonHelper().initModificationPerson();
         app.getPersonHelper().fillPersonalData(new PersonData("NewFirstName", "NewMiddleName",
                 "NewLastName", "NewNickName", "New   Title", "New  Company",

@@ -56,4 +56,13 @@ public class PersonHelper extends BaseHelper {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
     }
+
+    public void createPerson(PersonData person) {
+        fillPersonalData(person);
+        submitAddedPerson();
+    }
+
+    public boolean isHavePerson() {
+        return isElementPresent(By.name("selected[]"));
+    }
 }

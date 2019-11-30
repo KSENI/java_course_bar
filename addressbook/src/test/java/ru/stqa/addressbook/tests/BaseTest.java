@@ -7,7 +7,7 @@ import ru.stqa.addressbook.applicationmanager.ApplicationManager;
 
 public class BaseTest {
 
-    protected final ApplicationManager app = new ApplicationManager(BrowserType.IE);
+    protected final ApplicationManager app = new ApplicationManager(BrowserType.FIREFOX);
 
     @BeforeMethod(alwaysRun = true)
     public void setUp() {
