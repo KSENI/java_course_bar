@@ -2,14 +2,19 @@ package ru.stqa.addressbook.applicationmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.PersonData;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 public class PersonHelper extends BaseHelper {
-    public PersonHelper(WebDriver wd) {
+    PersonHelper(WebDriver wd) {
         super(wd);
     }
 
-    public void submitAddedPerson() {
+    private void submitAddedPerson() {
         click(By.xpath("(//input[@name='submit'])[2]"));
     }
 
@@ -64,5 +69,24 @@ public class PersonHelper extends BaseHelper {
 
     public boolean isHavePerson() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<PersonData> getPersons() {
+        List<PersonData> persons = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
+        for (WebElement element : elements) {
+            String lastName = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            String firstName = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            persons.add(new PersonData(firstName, null, lastName, null, null, null,
+                    null, null, null, null, null, null, null,
+                    null, null, null, null, null, null, null));
+        }
+        return persons;
+    }
+
+    public void sortBeforeAndAfterPerson(List<PersonData> beforePersons, List<PersonData> afterPersons) {
+        Comparator<? super PersonData> byLastName = Comparator.comparing(PersonData::getLastName);
+        beforePersons.sort(byLastName);
+        afterPersons.sort(byLastName);
     }
 }

@@ -18,5 +18,4 @@ public class BaseTest {
     public void tearDown() {
         app.stop();
     }
-
 }

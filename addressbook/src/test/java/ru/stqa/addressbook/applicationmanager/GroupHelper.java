@@ -2,21 +2,20 @@ package ru.stqa.addressbook.applicationmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.GroupData;
 
-public class GroupHelper extends BaseHelper {
-    private FirefoxDriver wd;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
-    public GroupHelper(WebDriver wd) {
+public class GroupHelper extends BaseHelper {
+
+    GroupHelper(WebDriver wd) {
         super(wd);
     }
 
-    public void returnToGroupPage() {
-        click(By.linkText("Logout"));
-    }
-
-    public void submitGroupCreation() {
+    private void submitGroupCreation() {
         click(By.name("submit"));
     }
 
@@ -26,7 +25,7 @@ public class GroupHelper extends BaseHelper {
         type(By.name("group_footer"), groupData.getGroupFooter());
     }
 
-    public void initGroupCreation() {
+    private void initGroupCreation() {
         click(By.name("new"));
     }
 
@@ -54,5 +53,20 @@ public class GroupHelper extends BaseHelper {
 
     public boolean isHaveGroup() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<GroupData> getGroups() {
+        List<GroupData> groups = new ArrayList<>();
+        List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+        for (WebElement element : elements) {
+            groups.add(new GroupData(element.getText(), null, null));
+        }
+        return groups;
+    }
+
+    public void sortBeforeAndAfterGroupsList(List<GroupData> beforeGroup, List<GroupData> afterGroup) {
+        Comparator<? super GroupData> byName = Comparator.comparing(GroupData::getGroupName);
+        beforeGroup.sort(byName);
+        afterGroup.sort(byName);
     }
 }
