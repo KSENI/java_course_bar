@@ -3,91 +3,98 @@ package ru.stqa.addressbook.model;
 import java.util.Objects;
 
 public class PersonData {
-    private final String firstName;
-    private final String middleName;
-    private final String lastName;
-    private final String nickName;
-    private final String title;
-    private final String company;
-    private final String address;
-    private final String homePhone;
-    private final String mobilePhone;
-    private final String workPhone;
-    private final String fax;
-    private final String email1;
-    private final String email2;
-    private final String email3;
-    private final String homepage;
-    private final String birthday;
-    private final String anniversary;
-    private final String address2;
-    private final String homePhone2;
-    private final String notes;
+    private String firstName;
+    private String middleName;
+    private String lastName;
+    private String address;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
+    private String email1;
+    private String email2;
+    private String email3;
+    private String homepage;
+    private int id;
+
+    public PersonData() {
+    }
+
+    public PersonData withFirstName(String firstName) {
+        this.firstName = firstName;
+        return this;
+    }
+
+    public PersonData withMiddleName(String middleName) {
+        this.middleName = middleName;
+        return this;
+    }
+
+    public PersonData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public PersonData withAddress(String address) {
+        this.address = address;
+        return this;
+    }
+
+    public PersonData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public PersonData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public PersonData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
+
+    public PersonData withEmail1(String email1) {
+        this.email1 = email1;
+        return this;
+    }
+
+    public PersonData withEmail2(String email2) {
+        this.email2 = email2;
+        return this;
+    }
+
+    public PersonData withEmail3(String email3) {
+        this.email3 = email3;
+        return this;
+    }
+
+    public PersonData withHomepage(String homepage) {
+        this.homepage = homepage;
+        return this;
+    }
+
+    public PersonData withId(int id) {
+        this.id = id;
+        return this;
+    }
 
     @Override
     public String toString() {
         return "PersonData{" +
+                "id='" + id + '\'' +
                 "firstName='" + firstName + '\'' +
                 ", middleName='" + middleName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", title='" + title + '\'' +
-                ", company='" + company + '\'' +
                 ", address='" + address + '\'' +
                 ", homePhone='" + homePhone + '\'' +
                 ", mobilePhone='" + mobilePhone + '\'' +
                 ", workPhone='" + workPhone + '\'' +
-                ", fax='" + fax + '\'' +
                 ", email1='" + email1 + '\'' +
                 ", email2='" + email2 + '\'' +
                 ", email3='" + email3 + '\'' +
                 ", homepage='" + homepage + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", anniversary='" + anniversary + '\'' +
-                ", address2='" + address2 + '\'' +
-                ", homePhone2='" + homePhone2 + '\'' +
-                ", notes='" + notes + '\'' +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PersonData that = (PersonData) o;
-        return Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName);
-    }
-
-    public PersonData(String firstName, String middleName, String lastName, String nickName, String title,
-                      String company, String address, String homePhone, String mobilePhone, String workPhone,
-                      String fax, String email1, String email2, String email3, String homepage, String birthday,
-                      String anniversary, String address2, String homePhone2, String notes) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.nickName = nickName;
-        this.title = title;
-        this.company = company;
-        this.address = address;
-        this.homePhone = homePhone;
-        this.mobilePhone = mobilePhone;
-        this.workPhone = workPhone;
-        this.fax = fax;
-        this.email1 = email1;
-        this.email2 = email2;
-        this.email3 = email3;
-        this.homepage = homepage;
-        this.birthday = birthday;
-        this.anniversary = anniversary;
-        this.address2 = address2;
-        this.homePhone2 = homePhone2;
-        this.notes = notes;
     }
 
     public String getFirstName() {
@@ -100,18 +107,6 @@ public class PersonData {
 
     public String getLastName() {
         return lastName;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getCompany() {
-        return company;
     }
 
     public String getAddress() {
@@ -130,10 +125,6 @@ public class PersonData {
         return workPhone;
     }
 
-    public String getFax() {
-        return fax;
-    }
-
     public String getEmail1() {
         return email1;
     }
@@ -150,23 +141,26 @@ public class PersonData {
         return homepage;
     }
 
-    public String getBirthday() {
-        return birthday;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonData that = (PersonData) o;
+        return Objects.equals(firstName, that.firstName) &&
+                Objects.equals(middleName, that.middleName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(homePhone, that.homePhone) &&
+                Objects.equals(mobilePhone, that.mobilePhone) &&
+                Objects.equals(workPhone, that.workPhone) &&
+                Objects.equals(email1, that.email1) &&
+                Objects.equals(email2, that.email2) &&
+                Objects.equals(email3, that.email3) &&
+                Objects.equals(homepage, that.homepage);
     }
 
-    public String getAnniversary() {
-        return anniversary;
-    }
-
-    public String getAddress2() {
-        return address2;
-    }
-
-    public String getHomePhone2() {
-        return homePhone2;
-    }
-
-    public String getNotes() {
-        return notes;
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, middleName, lastName, address, homePhone, mobilePhone, workPhone, email1, email2, email3, homepage);
     }
 }

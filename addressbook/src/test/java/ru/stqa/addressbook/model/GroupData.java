@@ -3,14 +3,12 @@ package ru.stqa.addressbook.model;
 import java.util.Objects;
 
 public class GroupData {
-    private final String groupName;
-    private final String groupHeader;
-    private final String groupFooter;
+    private int groupId;
+    private String groupName;
+    private String groupHeader;
+    private String groupFooter;
 
-    public GroupData(String groupName, String groupHeader, String groupFooter) {
-        this.groupName = groupName;
-        this.groupHeader = groupHeader;
-        this.groupFooter = groupFooter;
+    public GroupData() {
     }
 
     public String getGroupName() {
@@ -25,27 +23,54 @@ public class GroupData {
         return groupFooter;
     }
 
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public GroupData withGroupName(String groupName) {
+        this.groupName = groupName;
+        return this;
+    }
+
+    public GroupData withGroupHeader(String groupHeader) {
+        this.groupHeader = groupHeader;
+        return this;
+    }
+
+    public GroupData withGroupFooter(String groupFooter) {
+        this.groupFooter = groupFooter;
+        return this;
+    }
+
+    public GroupData withGroupId(int groupId) {
+        this.groupId = groupId;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "GroupData{" +
+                "groupId=" + groupId +
+                ", groupName='" + groupName + '\'' +
+                ", groupHeader='" + groupHeader + '\'' +
+                ", groupFooter='" + groupFooter + '\'' +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GroupData groupData = (GroupData) o;
-        return Objects.equals(groupName, groupData.groupName) &&
+        return groupId == groupData.groupId &&
+                Objects.equals(groupName, groupData.groupName) &&
                 Objects.equals(groupHeader, groupData.groupHeader) &&
                 Objects.equals(groupFooter, groupData.groupFooter);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(groupName, groupHeader, groupFooter);
+        return Objects.hash(groupId, groupName, groupHeader, groupFooter);
     }
 
-    @Override
-    public String toString() {
-        return "GroupData{" +
-                "groupName='" + groupName + '\'' +
-                ", groupHeader='" + groupHeader + '\'' +
-                ", groupFooter='" + groupFooter + '\'' +
-                '}';
-    }
 }

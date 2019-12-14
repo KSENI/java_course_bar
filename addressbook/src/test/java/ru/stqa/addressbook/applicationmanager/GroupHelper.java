@@ -4,9 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.model.Groups;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class GroupHelper extends BaseHelper {
@@ -33,21 +32,28 @@ public class GroupHelper extends BaseHelper {
         click(By.name("delete"));
     }
 
-    public void selectFirstGroups() {
-        click(By.name("selected[]"));
+    public int selectFirstGroupAndReturnId() {
+        By locator = By.name("selected[]");
+        WebElement element = wd.findElement(locator);
+        int id = Integer.parseInt(element.getAttribute("value"));
+        click(locator);
+        return id;
     }
 
     public void initGroupModification() {
         click(By.name("edit"));
     }
 
-    public void submitGroupModification() {
+    public void submitGroupModificationAndReturnId() {
         click(By.name("update"));
     }
 
     public void createGroup(GroupData groupData) {
         initGroupCreation();
-        fillGroupForm(new GroupData("test1", "test2", "test3"));
+        fillGroupForm(new GroupData()
+                .withGroupName(groupData.getGroupName())
+                .withGroupHeader(groupData.getGroupHeader())
+                .withGroupFooter(groupData.getGroupFooter()));
         submitGroupCreation();
     }
 
@@ -55,18 +61,12 @@ public class GroupHelper extends BaseHelper {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public List<GroupData> getGroups() {
-        List<GroupData> groups = new ArrayList<>();
+    public Groups getGroups() {
+        Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
-            groups.add(new GroupData(element.getText(), null, null));
+            groups.add(new GroupData().withGroupName(element.getText()));
         }
         return groups;
-    }
-
-    public void sortBeforeAndAfterGroupsList(List<GroupData> beforeGroup, List<GroupData> afterGroup) {
-        Comparator<? super GroupData> byName = Comparator.comparing(GroupData::getGroupName);
-        beforeGroup.sort(byName);
-        afterGroup.sort(byName);
     }
 }

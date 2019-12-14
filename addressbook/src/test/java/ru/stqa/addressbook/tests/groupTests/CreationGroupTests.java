@@ -1,26 +1,25 @@
 package ru.stqa.addressbook.tests.groupTests;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.model.Groups;
 import ru.stqa.addressbook.tests.BaseTest;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CreationGroupTests extends BaseTest {
 
     @Test
     public void testGroupCreation() {
-        app.getNavigationHelper().goToGroupPage();
-        List<GroupData> beforeGroup = app.getGroupHelper().getGroups();
+        app.goTo().goToGroupPage();
+        Groups beforeGroup = app.getGroupHelper().getGroups();
+        GroupData addedGroup = new GroupData().withGroupName("test1");
 
-        GroupData addedGroup = new GroupData("test1", null, null);
         app.getGroupHelper().createGroup(addedGroup);
-        app.getNavigationHelper().goToGroupPage();
+        app.goTo().goToGroupPage();
 
-        List<GroupData> afterGroup = app.getGroupHelper().getGroups();
-        beforeGroup.add(addedGroup);
-        app.getGroupHelper().sortBeforeAndAfterGroupsList(beforeGroup, afterGroup);
-        Assert.assertEquals(beforeGroup, afterGroup);
+        Groups afterGroup = app.getGroupHelper().getGroups();
+        assertThat(afterGroup, equalTo(beforeGroup.withAdded(addedGroup)));
     }
 }

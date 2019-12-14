@@ -1,31 +1,34 @@
 package ru.stqa.addressbook.tests.personTests;
 
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.PersonData;
+import ru.stqa.addressbook.model.Persons;
 import ru.stqa.addressbook.tests.BaseTest;
 
-import java.util.List;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class DeletePersonTests extends BaseTest {
+    @BeforeMethod
+    public void checkHavePersonsAndCreate() {
+        app.goTo().goToHomePage();
+        if (!app.getPersonHelper().isHavePerson()) {
+            app.goTo().goToCreatePerson();
+            app.getPersonHelper().createPerson(new PersonData().withFirstName("First Name").withLastName("Last Name"));
+            app.goTo().goToHomePage();
+        }
+    }
+
     @Test
     public void testDeletePerson() {
-        app.getNavigationHelper().goToHomePage();
-        if (!app.getPersonHelper().isHavePerson()) {
-            app.getNavigationHelper().goToCreatePerson();
-            app.getPersonHelper().createPerson(new PersonData("First Name", null, "LastName", null,
-                    null, null, null, null, null, null, null, null, null,
-                    null, null, null, null, null, null, null));
-            app.getNavigationHelper().goToHomePage();
-        }
-        List<PersonData> beforePersons = app.getPersonHelper().getPersons();
-        app.getPersonHelper().selectFirstPerson();
+        Persons beforePersons = app.getPersonHelper().getPersons();
+        int id = app.getPersonHelper().selectFirstPersonAndReturnId();
+
         app.getPersonHelper().deleteSelectedPerson();
 
-        app.getNavigationHelper().goToHomePage();
-        List<PersonData> afterPersons = app.getPersonHelper().getPersons();
-        beforePersons.remove(0);
-        app.getPersonHelper().sortBeforeAndAfterPerson(beforePersons, afterPersons);
-        Assert.assertEquals(beforePersons, afterPersons);
+        app.goTo().goToHomePage();
+        Persons afterPersons = app.getPersonHelper().getPersons();
+        assertThat(afterPersons, equalTo(beforePersons.without(new PersonData().withId(id))));
     }
 }
