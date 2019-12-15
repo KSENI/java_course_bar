@@ -38,4 +38,12 @@ public class BaseHelper {
             return false;
         }
     }
+
+    String getText(By locator) {
+        return wd.findElement(locator).getText();
+    }
+
+    String getValue(By locator) {
+        return wd.findElement(locator).getAttribute("value");
+    }
 }

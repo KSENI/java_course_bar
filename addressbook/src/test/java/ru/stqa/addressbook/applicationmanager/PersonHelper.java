@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.PersonData;
 import ru.stqa.addressbook.model.Persons;
 
-import java.util.Comparator;
 import java.util.List;
 
 public class PersonHelper extends BaseHelper {
@@ -72,9 +71,33 @@ public class PersonHelper extends BaseHelper {
         return persons;
     }
 
-    public void sortBeforeAndAfterPerson(List<PersonData> beforePersons, List<PersonData> afterPersons) {
-        Comparator<? super PersonData> byLastName = Comparator.comparing(PersonData::getLastName);
-        beforePersons.sort(byLastName);
-        afterPersons.sort(byLastName);
+    public String getPhoneNumbersInTableForFirstPerson() {
+        return getText(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[6]"));
+    }
+
+    public String getPhoneNumbersInPersonPageForFirstPerson() {
+        String homePhone = getValue(By.cssSelector("input[name=home]"));
+        String mobilePhone = getValue(By.cssSelector("input[name=mobile]"));
+        String workPhone = getValue(By.cssSelector("input[name='work']"));
+        return homePhone + mobilePhone + workPhone;
+    }
+
+    public String getAddressInTableForFirstPerson() {
+        return getText(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[4]"));
+    }
+
+    public String getAddressInPersonPageForFirstPerson() {
+        return getValue(By.cssSelector("textarea[name=address]"));
+    }
+
+    public String getEmailsInTableForFirstPerson() {
+        return getText(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[5]"));
+    }
+
+    public String getEmailsInPersonPageForFirstPerson() {
+        String email1 = getValue(By.name("email"));
+        String email2 = getValue(By.name("email2"));
+        String email3 = getValue(By.name("email3"));
+        return email1 + email2 + email3;
     }
 }

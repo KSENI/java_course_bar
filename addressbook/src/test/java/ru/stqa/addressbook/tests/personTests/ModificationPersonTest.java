@@ -15,7 +15,8 @@ public class ModificationPersonTest extends BaseTest {
         app.goTo().goToHomePage();
         if (!app.getPersonHelper().isHavePerson()) {
             app.goTo().goToCreatePerson();
-            app.getPersonHelper().createPerson(new PersonData().withFirstName("F").withLastName("L"));
+            app.getPersonHelper().createPerson(new PersonData().withFirstName("F").withLastName("L")
+                    .withHomePhone("+7-555-555").withMobilePhone("66 666 66").withWorkPhone("+7(909)-66").withAddress("Address"));
             app.goTo().goToHomePage();
         }
     }
@@ -24,7 +25,9 @@ public class ModificationPersonTest extends BaseTest {
     public void testModificationPerson() {
         Persons beforePersons = app.getPersonHelper().getPersons();
         int id = app.getPersonHelper().selectFirstPersonAndReturnId();
-        PersonData modifiedPerson = new PersonData().withFirstName("New First Name").withLastName("New Last Name");
+        PersonData modifiedPerson = new PersonData().withFirstName("New First Name").withLastName("New Last Name")
+                .withHomePhone("+7-555-555-new").withMobilePhone("66 666 66-new").withWorkPhone("+7(909)-66-new")
+                .withAddress("Address");
 
         app.getPersonHelper().initModificationPerson();
         app.getPersonHelper().fillPersonalData(modifiedPerson);

@@ -15,7 +15,8 @@ public class DeletePersonTests extends BaseTest {
         app.goTo().goToHomePage();
         if (!app.getPersonHelper().isHavePerson()) {
             app.goTo().goToCreatePerson();
-            app.getPersonHelper().createPerson(new PersonData().withFirstName("First Name").withLastName("Last Name"));
+            app.getPersonHelper().createPerson(new PersonData().withFirstName("First Name").withLastName("Last Name")
+                    .withHomePhone("+7-555-555").withMobilePhone("66 666 66").withWorkPhone("+7(909)-66").withAddress("Address"));
             app.goTo().goToHomePage();
         }
     }
