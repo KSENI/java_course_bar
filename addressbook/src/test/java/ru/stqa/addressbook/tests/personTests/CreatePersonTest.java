@@ -17,7 +17,8 @@ public class CreatePersonTest extends BaseTest {
         Persons beforePersons = app.getPersonHelper().getPersons();
         app.goTo().goToCreatePerson();
         PersonData addedPerson = new PersonData().withFirstName("FirstName").withLastName("LastName")
-                .withHomePhone("+7-555-555").withMobilePhone("66 666 66").withWorkPhone("+7(909)-66").withAddress("Address");
+                .withHomePhone("+7-555-555").withMobilePhone("66 666 66").withWorkPhone("+7(909)-66").withAddress("Address")
+                .withEmail1("sdfsf@sfsf.com").withEmail2("sdfsdfsdfadas@sdfsdfsdfafsdf.com").withEmail3("df@df.co");
 
         app.getPersonHelper().createPerson(addedPerson);
         app.goTo().goToHomePage();

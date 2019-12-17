@@ -44,6 +44,10 @@ public class BaseHelper {
     }
 
     String getValue(By locator) {
-        return wd.findElement(locator).getAttribute("value");
+        if (wd.findElements(locator).size() > 0) {
+            return wd.findElement(locator).getAttribute("value");
+        } else {
+            return "";
+        }
     }
 }
