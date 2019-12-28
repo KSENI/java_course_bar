@@ -39,13 +39,6 @@ public class PersonHelper extends BaseHelper {
         click(By.name("update"));
     }
 
-    public int selectFirstPersonAndReturnId() {
-        By locator = By.xpath("//td/input");
-        int id = Integer.parseInt(wd.findElement(locator).getAttribute("id"));
-        click(locator);
-        return id;
-    }
-
     public void deleteSelectedPerson() {
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();

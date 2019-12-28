@@ -25,7 +25,7 @@ public class DeletePersonTests extends BaseTest {
     @Test
     public void testDeletePerson() {
         Persons beforePersons = app.getPersonHelper().getPersons();
-        int id = app.getPersonHelper().selectFirstPersonAndReturnId();
+        int id = ((PersonData) beforePersons.toArray()[0]).getId();
 
         app.getPersonHelper().deleteSelectedPerson();
 

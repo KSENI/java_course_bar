@@ -23,7 +23,7 @@ public class DeleteGroupTest extends BaseTest {
     public void testDeleteGroup() {
         Groups beforeGroups = app.getGroupHelper().getGroups();
 
-        int id = app.getGroupHelper().selectFirstGroupAndReturnId();
+        int id = ((GroupData) beforeGroups.toArray()[0]).getGroupId();
         app.getGroupHelper().deleteSelectedGroup();
         app.goTo().goToGroupPage();
 

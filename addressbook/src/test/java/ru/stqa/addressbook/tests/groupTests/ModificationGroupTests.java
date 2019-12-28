@@ -22,7 +22,7 @@ public class ModificationGroupTests extends BaseTest {
     public void testGroupModification() {
         Groups beforeGroups = app.getGroupHelper().getGroups();
 
-        int id = app.getGroupHelper().selectFirstGroupAndReturnId();
+        int id = ((GroupData) beforeGroups.toArray()[0]).getGroupId();
         app.getGroupHelper().initGroupModification();
         GroupData modifiedGroup = new GroupData().withGroupName("test5");
         app.getGroupHelper().fillGroupForm(modifiedGroup);

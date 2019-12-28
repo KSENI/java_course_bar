@@ -97,6 +97,10 @@ public class PersonData {
                 '}';
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getFirstName() {
         return firstName;
     }

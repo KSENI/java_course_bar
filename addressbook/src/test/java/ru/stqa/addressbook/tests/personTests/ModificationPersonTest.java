@@ -24,7 +24,7 @@ public class ModificationPersonTest extends BaseTest {
     @Test
     public void testModificationPerson() {
         Persons beforePersons = app.getPersonHelper().getPersons();
-        int id = app.getPersonHelper().selectFirstPersonAndReturnId();
+        int id = ((PersonData) beforePersons.toArray()[0]).getId();
         PersonData modifiedPerson = new PersonData().withFirstName("New First Name").withLastName("New Last Name")
                 .withHomePhone("+7-555-555-new").withMobilePhone("66 666 66-new").withWorkPhone("+7(909)-66-new")
                 .withAddress("Address").withEmail1("sdfsf@sfsf.com").withEmail2("sdfsdfsdfadas@sdfsdfsdfafsdf.com")

@@ -32,14 +32,6 @@ public class GroupHelper extends BaseHelper {
         click(By.name("delete"));
     }
 
-    public int selectFirstGroupAndReturnId() {
-        By locator = By.name("selected[]");
-        WebElement element = wd.findElement(locator);
-        int id = Integer.parseInt(element.getAttribute("value"));
-        click(locator);
-        return id;
-    }
-
     public void initGroupModification() {
         click(By.name("edit"));
     }
