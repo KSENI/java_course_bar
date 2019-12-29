@@ -15,6 +15,8 @@ public class PersonData {
     private String email3;
     private String homepage;
     private int id;
+    private String allPhones;
+    private String allEmails;
 
     public PersonData() {
     }
@@ -76,6 +78,24 @@ public class PersonData {
 
     public PersonData withId(int id) {
         this.id = id;
+        return this;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public PersonData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+    public PersonData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
         return this;
     }
 

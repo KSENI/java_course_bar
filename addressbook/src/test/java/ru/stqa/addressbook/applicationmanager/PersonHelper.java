@@ -6,7 +6,9 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.PersonData;
 import ru.stqa.addressbook.model.Persons;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PersonHelper extends BaseHelper {
     PersonHelper(WebDriver wd) {
@@ -31,7 +33,8 @@ public class PersonHelper extends BaseHelper {
         type(By.name("homepage"), personData.getHomepage());
     }
 
-    public void initModificationPerson() {
+    public void initModificationPerson(PersonData contact) {
+        click(By.cssSelector("td input[id='" + contact.getId() + "']"));
         click(By.xpath("//img[@alt='Edit']"));
     }
 
@@ -66,33 +69,40 @@ public class PersonHelper extends BaseHelper {
         return persons;
     }
 
-    public String getPhoneNumbersInTableForFirstPerson() {
-        return getText(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[6]"));
+    public PersonData infoFromEditForm(PersonData contact) {
+        initModificationPerson(contact);
+
+        String firstName = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
+        String home = wd.findElement(By.name("home")).getAttribute("value");
+        String mobile = wd.findElement(By.name("mobile")).getAttribute("value");
+        String work = wd.findElement(By.name("work")).getAttribute("value");
+        String email1 = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+        String address = wd.findElement(By.name("address")).getAttribute("value");
+
+        wd.navigate().back();
+        return new PersonData().withId(contact.getId()).withFirstName(firstName).withLastName(lastName)
+                .withHomePhone(home).withMobilePhone(mobile).withWorkPhone(work)
+                .withEmail1(email1).withEmail2(email2).withEmail3(email3)
+                .withAddress(address);
     }
 
-    public String getPhoneNumbersInPersonPageForFirstPerson() {
-        String homePhone = getValue(By.cssSelector("input[name=home]"));
-        String mobilePhone = getValue(By.cssSelector("input[name=mobile]"));
-        String workPhone = getValue(By.cssSelector("input[name='work']"));
-        return homePhone + mobilePhone + workPhone;
-    }
-
-    public String getAddressInTableForFirstPerson() {
-        return getText(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[4]"));
-    }
-
-    public String getAddressInPersonPageForFirstPerson() {
-        return getValue(By.cssSelector("textarea[name=address]"));
-    }
-
-    public String getEmailsInTableForFirstPerson() {
-        return getText(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[5]"));
-    }
-
-    public String getEmailsInPersonPageForFirstPerson() {
-        String email1 = getValue(By.name("email"));
-        String email2 = getValue(By.name("email2"));
-        String email3 = getValue(By.name("email3"));
-        return email1 + email2 + email3;
+    public Set<PersonData> all() {
+        Set<PersonData> contacts = new HashSet<PersonData>();
+        List<WebElement> rows = wd.findElements(By.name("entry"));
+        for (WebElement row : rows) {
+            List<WebElement> cells = row.findElements(By.tagName("td"));
+            int id = Integer.parseInt(cells.get(0).findElement(By.tagName("input")).getAttribute("value"));
+            String lastName = cells.get(1).getText();
+            String firstName = cells.get(2).getText();
+            String allPhones = cells.get(5).getText();
+            String allEmails = cells.get(4).getText();
+            String address = cells.get(3).getText();
+            contacts.add(new PersonData().withId(id).withLastName(lastName).withFirstName(firstName)
+                    .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
+        }
+        return contacts;
     }
 }

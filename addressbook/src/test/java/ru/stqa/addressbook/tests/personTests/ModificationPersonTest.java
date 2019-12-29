@@ -30,7 +30,7 @@ public class ModificationPersonTest extends BaseTest {
                 .withAddress("Address").withEmail1("sdfsf@sfsf.com").withEmail2("sdfsdfsdfadas@sdfsdfsdfafsdf.com")
                 .withEmail3("df@df.co");
 
-        app.getPersonHelper().initModificationPerson();
+        app.getPersonHelper().initModificationPerson(oldPerson);
         app.getPersonHelper().fillPersonalData(newPerson);
         app.getPersonHelper().submitModifiedPerson();
 

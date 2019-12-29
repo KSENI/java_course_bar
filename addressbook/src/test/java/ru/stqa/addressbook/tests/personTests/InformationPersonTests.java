@@ -5,6 +5,10 @@ import org.testng.annotations.Test;
 import ru.stqa.addressbook.model.PersonData;
 import ru.stqa.addressbook.tests.BaseTest;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -23,31 +27,44 @@ public class InformationPersonTests extends BaseTest {
 
     @Test
     public void phoneNumberInPersonTableTest() {
-        String allPhonesInTable = app.getPersonHelper().getPhoneNumbersInTableForFirstPerson();
-        app.getPersonHelper().initModificationPerson();
-        String allPhonesInPersonPage = app.getPersonHelper().getPhoneNumbersInPersonPageForFirstPerson();
+        PersonData contact = app.getPersonHelper().all().iterator().next();
+        PersonData contactInfoFromEditForm = app.getPersonHelper().infoFromEditForm(contact);
 
-        allPhonesInTable = allPhonesInTable.replace("\n", "");
-        allPhonesInPersonPage = allPhonesInPersonPage.replaceAll("[\\s-()]", "");
-        assertThat(allPhonesInTable, equalTo(allPhonesInPersonPage));
+        assertThat(contact.getAllPhones(), equalTo(mergePhones(contactInfoFromEditForm)));
     }
 
     @Test
-    public void addressInPersonTableTest() {
-        String addressInTable = app.getPersonHelper().getAddressInTableForFirstPerson();
-        app.getPersonHelper().initModificationPerson();
-        String addressInPersonPage = app.getPersonHelper().getAddressInPersonPageForFirstPerson();
+    public void emailInPersonaTableTest() {
+        PersonData contact = app.getPersonHelper().all().iterator().next();
+        PersonData contactInfoFromEditForm = app.getPersonHelper().infoFromEditForm(contact);
 
-        assertThat(addressInTable, equalTo(addressInPersonPage));
+        assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
     }
 
     @Test
-    public void emailsInPersonTableTest() {
-        String emailsInTable = app.getPersonHelper().getEmailsInTableForFirstPerson();
-        app.getPersonHelper().initModificationPerson();
-        String emailsInPersonPage = app.getPersonHelper().getEmailsInPersonPageForFirstPerson();
+    public void addressInPersonaTableTest() {
+        PersonData contact = app.getPersonHelper().all().iterator().next();
+        PersonData contactInfoFromEditForm = app.getPersonHelper().infoFromEditForm(contact);
 
-        emailsInTable = emailsInTable.replace("\n", "");
-        assertThat(emailsInTable, equalTo(emailsInPersonPage));
+        assertThat(contact.getAddress(), equalTo(contactInfoFromEditForm.getAddress()));
+    }
+
+    private String mergePhones(PersonData contact) {
+        return merge(Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()));
+    }
+
+    private String mergeEmails(PersonData contact) {
+        return merge(Arrays.asList(contact.getEmail1(), contact.getEmail2(), contact.getEmail3()));
+    }
+
+    private String merge(List<String> fieldsToMerge) {
+        return fieldsToMerge
+                .stream().filter((s) -> !s.equals(""))
+                .map(InformationPersonTests::cleaned)
+                .collect(Collectors.joining("\n"));
+    }
+
+    private static String cleaned(String phone) {
+        return phone.replaceAll("\\s", "").replaceAll("[-() ]", "");
     }
 }
