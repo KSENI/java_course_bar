@@ -28,11 +28,13 @@ public class GroupHelper extends BaseHelper {
         click(By.name("new"));
     }
 
-    public void deleteSelectedGroup() {
+    public void deleteGroup(GroupData groupData) {
+        click(By.cssSelector("input[type='checkbox'][value='" + groupData.getGroupId() + "']"));
         click(By.name("delete"));
     }
 
-    public void initGroupModification() {
+    public void initGroupModification(GroupData groupData) {
+        click(By.cssSelector("input[type='checkbox'][value='" + groupData.getGroupId() + "']"));
         click(By.name("edit"));
     }
 
@@ -57,7 +59,8 @@ public class GroupHelper extends BaseHelper {
         Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
-            groups.add(new GroupData().withGroupName(element.getText()));
+            int id = Integer.parseInt(element.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("value"));
+            groups.add(new GroupData().withGroupName(element.getText()).withGroupId(id));
         }
         return groups;
     }

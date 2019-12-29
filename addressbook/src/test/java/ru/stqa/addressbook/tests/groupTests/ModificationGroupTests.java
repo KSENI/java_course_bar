@@ -22,15 +22,16 @@ public class ModificationGroupTests extends BaseTest {
     public void testGroupModification() {
         Groups beforeGroups = app.getGroupHelper().getGroups();
 
-        int id = ((GroupData) beforeGroups.toArray()[0]).getGroupId();
-        app.getGroupHelper().initGroupModification();
-        GroupData modifiedGroup = new GroupData().withGroupName("test5");
+        GroupData oldGroup = (GroupData) beforeGroups.toArray()[0];
+        int id = oldGroup.getGroupId();
+        app.getGroupHelper().initGroupModification(oldGroup);
+        GroupData modifiedGroup = new GroupData().withGroupName("test5").withGroupId(id);
         app.getGroupHelper().fillGroupForm(modifiedGroup);
         app.getGroupHelper().submitGroupModificationAndReturnId();
         app.goTo().goToGroupPage();
 
         Groups afterGroups = app.getGroupHelper().getGroups();
         assertThat(afterGroups, equalTo(beforeGroups
-                .withAdded(modifiedGroup).without(new GroupData().withGroupId(id))));
+                .withAdded(modifiedGroup).without(oldGroup)));
     }
 }

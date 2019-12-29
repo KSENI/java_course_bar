@@ -25,12 +25,12 @@ public class DeletePersonTests extends BaseTest {
     @Test
     public void testDeletePerson() {
         Persons beforePersons = app.getPersonHelper().getPersons();
-        int id = ((PersonData) beforePersons.toArray()[0]).getId();
+        PersonData deletedPerson = ((PersonData) beforePersons.toArray()[0]);
 
-        app.getPersonHelper().deleteSelectedPerson();
+        app.getPersonHelper().deleteSelectedPerson(deletedPerson);
 
         app.goTo().goToHomePage();
         Persons afterPersons = app.getPersonHelper().getPersons();
-        assertThat(afterPersons, equalTo(beforePersons.without(new PersonData().withId(id))));
+        assertThat(afterPersons, equalTo(beforePersons.without(deletedPerson)));
     }
 }

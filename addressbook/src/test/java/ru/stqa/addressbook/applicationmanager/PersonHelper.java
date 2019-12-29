@@ -39,7 +39,8 @@ public class PersonHelper extends BaseHelper {
         click(By.name("update"));
     }
 
-    public void deleteSelectedPerson() {
+    public void deleteSelectedPerson(PersonData deletedPerson) {
+        click(By.cssSelector("td input[id='" + deletedPerson.getId() + "']"));
         click(By.xpath("//input[@value='Delete']"));
         wd.switchTo().alert().accept();
     }
@@ -57,9 +58,10 @@ public class PersonHelper extends BaseHelper {
         Persons persons = new Persons();
         List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
         for (WebElement element : elements) {
+            int id = Integer.parseInt(element.findElement(By.cssSelector("td.center input")).getAttribute("value"));
             String lastName = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
             String firstName = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
-            persons.add(new PersonData().withFirstName(firstName).withLastName(lastName));
+            persons.add(new PersonData().withId(id).withFirstName(firstName).withLastName(lastName));
         }
         return persons;
     }

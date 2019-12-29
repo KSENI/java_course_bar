@@ -24,20 +24,20 @@ public class ModificationPersonTest extends BaseTest {
     @Test
     public void testModificationPerson() {
         Persons beforePersons = app.getPersonHelper().getPersons();
-        int id = ((PersonData) beforePersons.toArray()[0]).getId();
-        PersonData modifiedPerson = new PersonData().withFirstName("New First Name").withLastName("New Last Name")
+        PersonData oldPerson = (PersonData) beforePersons.toArray()[0];
+        PersonData newPerson = new PersonData().withFirstName("New First Name").withLastName("New Last Name")
                 .withHomePhone("+7-555-555-new").withMobilePhone("66 666 66-new").withWorkPhone("+7(909)-66-new")
                 .withAddress("Address").withEmail1("sdfsf@sfsf.com").withEmail2("sdfsdfsdfadas@sdfsdfsdfafsdf.com")
                 .withEmail3("df@df.co");
 
         app.getPersonHelper().initModificationPerson();
-        app.getPersonHelper().fillPersonalData(modifiedPerson);
+        app.getPersonHelper().fillPersonalData(newPerson);
         app.getPersonHelper().submitModifiedPerson();
 
         app.goTo().goToHomePageOnYellowBlock();
         Persons afterPersons = app.getPersonHelper().getPersons();
-        MatcherAssert.assertThat(afterPersons, CoreMatchers.equalTo(beforePersons.without(new PersonData().withId(id))
-                .withAdded(modifiedPerson)));
+        MatcherAssert.assertThat(afterPersons, CoreMatchers.equalTo(beforePersons.without(oldPerson)
+                .withAdded(newPerson)));
     }
 
 }
