@@ -1,17 +1,28 @@
 package ru.stqa.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Objects;
 
 public class PersonData {
+    @Expose
     private String firstName;
     private String middleName;
+    @Expose
     private String lastName;
+    @Expose
     private String address;
+    @Expose
     private String homePhone;
+    @Expose
     private String mobilePhone;
+    @Expose
     private String workPhone;
+    @Expose
     private String email1;
+    @Expose
     private String email2;
+    @Expose
     private String email3;
     private String homepage;
     private int id;

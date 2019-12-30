@@ -1,11 +1,16 @@
 package ru.stqa.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.Objects;
 
 public class GroupData {
     private int groupId;
+    @Expose
     private String groupName;
+    @Expose
     private String groupHeader;
+    @Expose
     private String groupFooter;
 
     public GroupData() {
