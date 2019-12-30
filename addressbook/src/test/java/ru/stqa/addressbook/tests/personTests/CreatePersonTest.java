@@ -24,18 +24,18 @@ public class CreatePersonTest extends BaseTest {
     @DataProvider
     public Iterator<Object[]> validPerson() throws IOException {
         String pathToFile = "src/test/java/ru/stqa/addressbook/resources/persons.json";
-        BufferedReader reader = new BufferedReader(new FileReader(new File(pathToFile)));
-
-        StringBuilder json = new StringBuilder();
-        String line = reader.readLine();
-        while (line != null) {
-            json.append(line);
-            line = reader.readLine();
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(pathToFile)))) {
+            StringBuilder json = new StringBuilder();
+            String line = reader.readLine();
+            while (line != null) {
+                json.append(line);
+                line = reader.readLine();
+            }
+            Gson gson = new Gson();
+            List<PersonData> groups = gson.fromJson(json.toString(), new TypeToken<List<PersonData>>() {
+            }.getType());
+            return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-        Gson gson = new Gson();
-        List<PersonData> groups = gson.fromJson(json.toString(), new TypeToken<List<PersonData>>() {
-        }.getType());
-        return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
     }
 
     @Test(dataProvider = "validPerson")
