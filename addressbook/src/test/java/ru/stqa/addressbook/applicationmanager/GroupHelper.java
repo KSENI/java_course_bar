@@ -55,7 +55,7 @@ public class GroupHelper extends BaseHelper {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public Groups getGroups() {
+    public Groups getGroupsInTable() {
         Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
@@ -64,4 +64,21 @@ public class GroupHelper extends BaseHelper {
         }
         return groups;
     }
+/*
+    public Groups getAllGroupInformation() {
+        Groups groups = new Groups();
+        List<WebElement> allGroupInTable = wd.findElements(By.cssSelector("span.group"));
+        for (WebElement groupInTable: allGroupInTable) {
+            int id = Integer.parseInt(
+                    groupInTable.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("value"));
+            groupInTable.findElement(By.cssSelector("input[type='checkbox']")).click();
+            click(By.name("edit"));
+            String name = wd.findElement(By.name("group_name")).getAttribute("value");
+            String header = wd.findElement(By.name("group_header")).getAttribute("value");
+            String footer = wd.findElement(By.name("group_footer")).getAttribute("value");
+            groups.add(new GroupData().withGroupId(id).withGroupName(name).withGroupHeader(header).withGroupFooter(footer));
+            wd.findElement(By.xpath("//a[contains(text(),'groups')]")).click();
+        }
+        return groups;
+    } */
 }

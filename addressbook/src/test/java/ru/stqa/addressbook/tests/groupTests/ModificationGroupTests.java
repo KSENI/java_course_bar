@@ -20,7 +20,7 @@ public class ModificationGroupTests extends BaseTest {
     }
     @Test
     public void testGroupModification() {
-        Groups beforeGroups = app.getGroupHelper().getGroups();
+        Groups beforeGroups = app.getGroupHelper().getGroupsInTable();
 
         GroupData oldGroup = (GroupData) beforeGroups.toArray()[0];
         int id = oldGroup.getGroupId();
@@ -30,7 +30,7 @@ public class ModificationGroupTests extends BaseTest {
         app.getGroupHelper().submitGroupModificationAndReturnId();
         app.goTo().goToGroupPage();
 
-        Groups afterGroups = app.getGroupHelper().getGroups();
+        Groups afterGroups = app.getGroupHelper().getGroupsInTable();
         assertThat(afterGroups, equalTo(beforeGroups
                 .withAdded(modifiedGroup).without(oldGroup)));
     }

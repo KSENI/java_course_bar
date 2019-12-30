@@ -21,13 +21,13 @@ public class DeleteGroupTest extends BaseTest {
     }
     @Test
     public void testDeleteGroup() {
-        Groups beforeGroups = app.getGroupHelper().getGroups();
+        Groups beforeGroups = app.getGroupHelper().getGroupsInTable();
 
         GroupData deletedGroup = ((GroupData) beforeGroups.toArray()[0]);
         app.getGroupHelper().deleteGroup(deletedGroup);
         app.goTo().goToGroupPage();
 
-        Groups afterGroups = app.getGroupHelper().getGroups();
+        Groups afterGroups = app.getGroupHelper().getGroupsInTable();
         assertThat(afterGroups, equalTo(beforeGroups.without(deletedGroup)));
     }
 }
