@@ -12,25 +12,25 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ModificationGroupTests extends BaseTest {
     @BeforeMethod
     public void checkHaveGroupAndCreateGroup() {
-        app.goTo().goToGroupPage();
-        if (!app.getGroupHelper().isHaveGroup()) {
-            app.getGroupHelper().createGroup(new GroupData().withGroupName("test1"));
-            app.goTo().goToGroupPage();
+        if (app.getDbHelper().groups().size() == 0) {
+            //app.goTo().goToGroupPage();
+            app.getGroupHelper().createGroupAndReturnId(new GroupData().withGroupName("test1"));
         }
     }
     @Test
     public void testGroupModification() {
-        Groups beforeGroups = app.getGroupHelper().getGroupsInTable();
-
+        app.goTo().goToGroupPage();
+        Groups beforeGroups = app.getDbHelper().groups();
         GroupData oldGroup = (GroupData) beforeGroups.toArray()[0];
         int id = oldGroup.getGroupId();
         app.getGroupHelper().initGroupModification(oldGroup);
-        GroupData modifiedGroup = new GroupData().withGroupName("test5").withGroupId(id);
+
+        GroupData modifiedGroup = new GroupData().withGroupName("new group name")
+                .withGroupFooter("new group footer").withGroupHeader("new group header").withGroupId(id);
         app.getGroupHelper().fillGroupForm(modifiedGroup);
         app.getGroupHelper().submitGroupModificationAndReturnId();
-        app.goTo().goToGroupPage();
 
-        Groups afterGroups = app.getGroupHelper().getGroupsInTable();
+        Groups afterGroups = app.getDbHelper().groups();
         assertThat(afterGroups, equalTo(beforeGroups
                 .withAdded(modifiedGroup).without(oldGroup)));
     }

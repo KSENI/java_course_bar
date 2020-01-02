@@ -41,13 +41,14 @@ public class CreatePersonTest extends BaseTest {
     @Test(dataProvider = "validPerson")
     public void testCreatePerson(PersonData addedPerson) {
         app.goTo().goToHomePage();
-        Persons beforePersons = app.getPersonHelper().getPersons();
+        int maxId = app.getPersonHelper().getMaxId();
+        Persons beforePersons = app.getDbHelper().persons();
         app.goTo().goToCreatePerson();
 
-        app.getPersonHelper().createPerson(addedPerson);
+        app.getPersonHelper().createPerson(addedPerson.withId(maxId + 1));
         app.goTo().goToHomePage();
 
-        Persons afterPersons = app.getPersonHelper().getPersons();
+        Persons afterPersons = app.getDbHelper().persons();
         assertThat(afterPersons, equalTo(beforePersons.withAdded(addedPerson)));
     }
 }

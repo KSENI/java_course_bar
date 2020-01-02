@@ -52,7 +52,7 @@ public class PersonDataGenerator {
                     withFirstName("First Name " + i).withLastName("Last Name " + i)
                     .withHomePhone("+7 (909)" + i).withMobilePhone("8-908-" + i).withWorkPhone("BD-" + i)
                     .withEmail1(i + "1dfsdf@dsfsdf.com").withEmail2(i + "2dfsdf@dsfsdf.com").withEmail3(i + "3dfsdf@dsfsdf.com")
-                    .withAddress("address " + i));
+                    .withAddress("address " + i).withHomepage("home page" + i).withMiddleName("middle name" + i));
         }
         return persons;
     }

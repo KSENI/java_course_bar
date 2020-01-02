@@ -12,8 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class DeletePersonTests extends BaseTest {
     @BeforeMethod
     public void checkHavePersonsAndCreate() {
-        app.goTo().goToHomePage();
-        if (!app.getPersonHelper().isHavePerson()) {
+        if (app.getDbHelper().persons().size() == 0) {
             app.goTo().goToCreatePerson();
             app.getPersonHelper().createPerson(new PersonData().withFirstName("First Name").withLastName("Last Name")
                     .withHomePhone("+7-555-555").withMobilePhone("66 666 66").withWorkPhone("+7(909)-66").withAddress("Address")
@@ -24,13 +23,13 @@ public class DeletePersonTests extends BaseTest {
 
     @Test
     public void testDeletePerson() {
-        Persons beforePersons = app.getPersonHelper().getPersons();
+        Persons beforePersons = app.getDbHelper().persons();
         PersonData deletedPerson = ((PersonData) beforePersons.toArray()[0]);
 
         app.getPersonHelper().deleteSelectedPerson(deletedPerson);
 
         app.goTo().goToHomePage();
-        Persons afterPersons = app.getPersonHelper().getPersons();
+        Persons afterPersons = app.getDbHelper().persons();
         assertThat(afterPersons, equalTo(beforePersons.without(deletedPerson)));
     }
 }

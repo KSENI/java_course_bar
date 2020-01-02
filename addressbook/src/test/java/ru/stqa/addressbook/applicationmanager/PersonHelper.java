@@ -6,9 +6,7 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.PersonData;
 import ru.stqa.addressbook.model.Persons;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class PersonHelper extends BaseHelper {
     PersonHelper(WebDriver wd) {
@@ -104,5 +102,14 @@ public class PersonHelper extends BaseHelper {
                     .withAllPhones(allPhones).withAddress(address).withAllEmails(allEmails));
         }
         return contacts;
+    }
+
+    public int getMaxId() {
+        List<WebElement> persons = wd.findElements(By.cssSelector("tr input[type='checkbox']"));
+        List<Integer> allIds = new ArrayList<>();
+        for (WebElement person : persons) {
+            allIds.add(Integer.parseInt(person.getAttribute("value")));
+        }
+        return Collections.max(allIds);
     }
 }

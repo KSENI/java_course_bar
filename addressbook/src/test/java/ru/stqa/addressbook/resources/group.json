@@ -3,15 +3,5 @@
     "groupName": "name 0",
     "groupHeader": "header 0",
     "groupFooter": "footer 0"
-  },
-  {
-    "groupName": "name 1",
-    "groupHeader": "header 1",
-    "groupFooter": "footer 1"
-  },
-  {
-    "groupName": "name 2",
-    "groupHeader": "header 2",
-    "groupFooter": "footer 2"
   }
 ]

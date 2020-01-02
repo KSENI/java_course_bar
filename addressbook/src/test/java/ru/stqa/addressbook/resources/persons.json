@@ -1,6 +1,7 @@
 [
   {
     "firstName": "First Name 0",
+    "middleName": "middle name0",
     "lastName": "Last Name 0",
     "address": "address 0",
     "homePhone": "+7 (909)0",
@@ -8,50 +9,7 @@
     "workPhone": "BD-0",
     "email1": "01dfsdf@dsfsdf.com",
     "email2": "02dfsdf@dsfsdf.com",
-    "email3": "03dfsdf@dsfsdf.com"
-  },
-  {
-    "firstName": "First Name 1",
-    "lastName": "Last Name 1",
-    "address": "address 1",
-    "homePhone": "+7 (909)1",
-    "mobilePhone": "8-908-1",
-    "workPhone": "BD-1",
-    "email1": "11dfsdf@dsfsdf.com",
-    "email2": "12dfsdf@dsfsdf.com",
-    "email3": "13dfsdf@dsfsdf.com"
-  },
-  {
-    "firstName": "First Name 2",
-    "lastName": "Last Name 2",
-    "address": "address 2",
-    "homePhone": "+7 (909)2",
-    "mobilePhone": "8-908-2",
-    "workPhone": "BD-2",
-    "email1": "21dfsdf@dsfsdf.com",
-    "email2": "22dfsdf@dsfsdf.com",
-    "email3": "23dfsdf@dsfsdf.com"
-  },
-  {
-    "firstName": "First Name 3",
-    "lastName": "Last Name 3",
-    "address": "address 3",
-    "homePhone": "+7 (909)3",
-    "mobilePhone": "8-908-3",
-    "workPhone": "BD-3",
-    "email1": "31dfsdf@dsfsdf.com",
-    "email2": "32dfsdf@dsfsdf.com",
-    "email3": "33dfsdf@dsfsdf.com"
-  },
-  {
-    "firstName": "First Name 4",
-    "lastName": "Last Name 4",
-    "address": "address 4",
-    "homePhone": "+7 (909)4",
-    "mobilePhone": "8-908-4",
-    "workPhone": "BD-4",
-    "email1": "41dfsdf@dsfsdf.com",
-    "email2": "42dfsdf@dsfsdf.com",
-    "email3": "43dfsdf@dsfsdf.com"
+    "email3": "03dfsdf@dsfsdf.com",
+    "homepage": "home page0"
   }
 ]

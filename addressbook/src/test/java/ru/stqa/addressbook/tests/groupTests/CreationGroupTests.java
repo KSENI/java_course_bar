@@ -41,12 +41,13 @@ public class CreationGroupTests extends BaseTest {
     @Test(dataProvider = "validGroups")
     public void testGroupCreation(GroupData addedGroup) {
         app.goTo().goToGroupPage();
-        Groups beforeGroup = app.getGroupHelper().getGroupsInTable();
+        Groups beforeGroup = app.getDbHelper().groups();
 
-        app.getGroupHelper().createGroup(addedGroup);
+        int idCreatedGroup = app.getGroupHelper().createGroupAndReturnId(addedGroup);
+        addedGroup.withGroupId(idCreatedGroup);
         app.goTo().goToGroupPage();
 
-        Groups afterGroup = app.getGroupHelper().getGroupsInTable();
+        Groups afterGroup = app.getDbHelper().groups();
         assertThat(afterGroup, equalTo(beforeGroup.withAdded(addedGroup)));
     }
 }

@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GroupHelper extends BaseHelper {
@@ -42,13 +44,25 @@ public class GroupHelper extends BaseHelper {
         click(By.name("update"));
     }
 
-    public void createGroup(GroupData groupData) {
+    public int createGroupAndReturnId(GroupData groupData) {
+        int idCreatedGroup = getMaximumId() + 1;
         initGroupCreation();
         fillGroupForm(new GroupData()
+                .withGroupId(idCreatedGroup)
                 .withGroupName(groupData.getGroupName())
                 .withGroupHeader(groupData.getGroupHeader())
                 .withGroupFooter(groupData.getGroupFooter()));
         submitGroupCreation();
+        return idCreatedGroup;
+    }
+
+    public int getMaximumId() {
+        List<WebElement> allGroups = wd.findElements(By.cssSelector("input[type='checkbox']"));
+        List<Integer> allIds = new ArrayList<>();
+        for (WebElement group : allGroups) {
+            allIds.add(Integer.parseInt(group.getAttribute("value")));
+        }
+        return Collections.max(allIds);
     }
 
     public boolean isHaveGroup() {

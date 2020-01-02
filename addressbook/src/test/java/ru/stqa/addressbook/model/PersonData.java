@@ -1,32 +1,61 @@
 package ru.stqa.addressbook.model;
 
 import com.google.gson.annotations.Expose;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "addressbook")
 public class PersonData {
     @Expose
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "middlename")
+    @Expose
     private String middleName;
     @Expose
+    @Column(name = "lastname")
     private String lastName;
     @Expose
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
     @Expose
+    @Type(type = "text")
+    @Column(name = "home")
     private String homePhone;
     @Expose
+    @Type(type = "text")
+    @Column(name = "mobile")
     private String mobilePhone;
     @Expose
+    @Type(type = "text")
+    @Column(name = "work")
     private String workPhone;
     @Expose
+    @Type(type = "text")
+    @Column(name = "email")
     private String email1;
     @Expose
+    @Type(type = "text")
+    @Column(name = "email2")
     private String email2;
     @Expose
+    @Type(type = "text")
+    @Column(name = "email3")
     private String email3;
+    @Type(type = "text")
+    @Expose
+    @Column(name = "homepage")
     private String homepage;
+    @Id
+    @Column(name = "id")
     private int id;
+    @Transient
     private String allPhones;
+    @Transient
     private String allEmails;
 
     public PersonData() {
@@ -181,12 +210,22 @@ public class PersonData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonData that = (PersonData) o;
-        return Objects.equals(firstName, that.firstName) &&
-                Objects.equals(lastName, that.lastName);
+        return id == that.id &&
+                Objects.equals(firstName, that.firstName) &&
+                Objects.equals(middleName, that.middleName) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(homePhone, that.homePhone) &&
+                Objects.equals(mobilePhone, that.mobilePhone) &&
+                Objects.equals(workPhone, that.workPhone) &&
+                Objects.equals(email1, that.email1) &&
+                Objects.equals(email2, that.email2) &&
+                Objects.equals(email3, that.email3) &&
+                Objects.equals(homepage, that.homepage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName);
+        return Objects.hash(firstName, middleName, lastName, address, homePhone, mobilePhone, workPhone, email1, email2, email3, homepage, id);
     }
 }

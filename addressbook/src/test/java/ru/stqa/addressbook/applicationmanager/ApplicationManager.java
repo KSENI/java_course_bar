@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
     private final Properties properties;
+    private DbHelper dbHelper;
     public WebDriver wd;
     private SessionHelper sessionHelper;
     private PersonHelper personHelper;
@@ -29,6 +30,7 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File("src/test/java/ru/stqa/addressbook/resources/" + target + ".properties")));
+        dbHelper = new DbHelper();
         if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
         } else if (browser.equals(BrowserType.CHROME)) {
@@ -37,7 +39,7 @@ public class ApplicationManager {
             wd = new InternetExplorerDriver();
         }
 
-        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
         wd.get(properties.getProperty("web.baseUrl"));
         groupHelper = new GroupHelper(wd);
         navigationHelper = new NavigationHelper(wd);
@@ -60,5 +62,9 @@ public class ApplicationManager {
 
     public PersonHelper getPersonHelper() {
         return personHelper;
+    }
+
+    public DbHelper getDbHelper() {
+        return dbHelper;
     }
 }
