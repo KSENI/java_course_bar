@@ -23,7 +23,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class CreatePersonTest extends BaseTest {
     @DataProvider
     public Iterator<Object[]> validPerson() throws IOException {
-        String pathToFile = "src/test/java/ru/stqa/addressbook/resources/persons.json";
+        System.out.println(new File(".").getAbsoluteFile());
+        String pathToFile = "addressbook/src/test/resources/persons.json";
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(pathToFile)))) {
             StringBuilder json = new StringBuilder();
             String line = reader.readLine();

@@ -29,7 +29,7 @@ public class ApplicationManager {
 
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
-        properties.load(new FileReader(new File("src/test/java/ru/stqa/addressbook/resources/" + target + ".properties")));
+        properties.load(new FileReader(new File("addressbook/src/test/resources/" + target + ".properties")));
         dbHelper = new DbHelper();
         if (browser.equals(BrowserType.FIREFOX)) {
             wd = new FirefoxDriver();
