@@ -3,6 +3,9 @@ package ru.stqa.addressbook.applicationmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
+import ru.stqa.addressbook.model.GroupData;
+import ru.stqa.addressbook.model.Groups;
 import ru.stqa.addressbook.model.PersonData;
 import ru.stqa.addressbook.model.Persons;
 
@@ -111,5 +114,21 @@ public class PersonHelper extends BaseHelper {
             allIds.add(Integer.parseInt(person.getAttribute("value")));
         }
         return Collections.max(allIds);
+    }
+
+    public void addGroupToPerson(PersonData person) {
+        click(By.cssSelector("td input[id='" + person.getId() + "']"));
+        click(By.cssSelector(".right input[type='submit']"));
+    }
+
+    public void deleteGroup(PersonData person) {
+        Groups allGroups = person.getGroups();
+
+        GroupData groups = (GroupData) allGroups.toArray()[0];
+        String groupName = groups.getGroupName();
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(groupName);
+        click(By.cssSelector("td input[id='" + person.getId() + "']"));
+        click(By.cssSelector(".left input[name='remove']"));
+
     }
 }
