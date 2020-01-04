@@ -6,6 +6,8 @@
       <module name="address.test" target="1.8" />
       <module name="addressbook.main" target="1.8" />
       <module name="addressbook.test" target="1.8" />
+      <module name="mantis-tests.main" target="1.8" />
+      <module name="mantis-tests.test" target="1.8" />
       <module name="sandbox.main" target="1.8" />
       <module name="sandbox.test" target="1.8" />
     </bytecodeTargetLevel>
