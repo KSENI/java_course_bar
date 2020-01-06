@@ -35,7 +35,7 @@ public class DbHelper {
     public Persons persons() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<PersonData> result = session.createQuery("from PersonData ").list();
+        List<PersonData> result = session.createQuery("from PersonData where deprecated='0000-00-00'").list();
         session.getTransaction().commit();
         session.close();
         return new Persons(result);

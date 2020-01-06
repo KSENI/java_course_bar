@@ -215,6 +215,7 @@ public class PersonData {
         return homepage;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
