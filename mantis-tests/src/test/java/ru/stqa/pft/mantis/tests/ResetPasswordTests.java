@@ -15,7 +15,6 @@ import java.util.List;
 import static org.testng.Assert.assertTrue;
 
 public class ResetPasswordTests extends BaseTest {
-    private final String login = "user1578171358337";
 
     @BeforeMethod
     public void startMailServer() {
@@ -27,7 +26,7 @@ public class ResetPasswordTests extends BaseTest {
         app.user().adminLogin("administrator", "root");
         app.user().goToPageSettingsUsers();
 
-        UserData situatedUser = app.dbHelper().getUserData(login).iterator().next();
+        UserData situatedUser = app.dbHelper().getUserData().iterator().next();
         String situatedUserEmail = situatedUser.getEmail();
         String userName = situatedUser.getUsername();
         app.user().resetPassword(userName);

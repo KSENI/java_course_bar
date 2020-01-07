@@ -20,10 +20,10 @@ public class DbHelper {
         sessionFactory = new MetadataSources(registry).buildMetadata().buildSessionFactory();
     }
 
-    public User getUserData(String login) {
+    public User getUserData() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        List<UserData> result = session.createQuery(String.format("from UserData where username = '%s'", login)).list();
+        List<UserData> result = session.createQuery("from UserData where username != 'administrator'").list();
         session.getTransaction().commit();
         session.close();
         return new User(result);
