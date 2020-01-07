@@ -8,14 +8,14 @@ import ru.stqa.addressbook.model.PersonData;
 import ru.stqa.addressbook.model.Persons;
 import ru.stqa.addressbook.tests.BaseTest;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.IsEqual.equalTo;
 
-public class AddGroupInPerson extends BaseTest {
-    private GroupData groupToAdded = null;
+public class DeleteGroupInPerson extends BaseTest {
+    GroupData groupToAdded;
 
     @BeforeMethod
-    public void findPersonWithoutGroupsAndCreateIt() {
+    public void ensureGroupPreconditions() {
         if (checkContacts().size() == 0) { //контактов нет
             createContactAndReturnCreatedContact();
         }
@@ -25,30 +25,28 @@ public class AddGroupInPerson extends BaseTest {
     }
 
     @Test
-    public void addGroupInPerson() {
-        Persons contactsBefore = null;
+    public void personDeleteInGroupsTest() {
+        if (app.getDbHelper().situatedGroupForRemoveContact() == null) { //нет группы с контактами
+            app.goTo().goToHomePage();
+            app.getPersonHelper().createPerson(new PersonData()
+                    .withFirstName("name").withLastName("last name").withHomePhone("123")
+                    .withEmail1("fsdf.sdfsdf@dffd.com").withAddress("address")
+                    .inGroup(app.getDbHelper().groups().iterator().next()));
+        }
+
+        Persons beforeContacts = app.getDbHelper().situatedGroupForRemoveContact().getPersons();
+        int situatedGroupIDForRemoveContact = app.getDbHelper().situatedGroupForRemoveContact().getGroupId();
 
         app.goTo().goToHomePage();
-
-        Persons beforeContacts = app.getDbHelper().persons();
-        Groups group = app.getDbHelper().groups();
-
+        app.getPersonHelper().contactsFilterByGroup(situatedGroupIDForRemoveContact);
         PersonData selectedContact = beforeContacts.iterator().next();
-        groupToAdded = app.getDbHelper().situatedGroup(group, selectedContact);
-        if (groupToAdded == null) {
-            app.goTo().goToGroupPage();
-            app.getGroupHelper().createGroupAndReturnId(new GroupData().withGroupName("test_new"));
-            groupToAdded = app.getDbHelper().getGroupWithMaxIDFromDb();
-            contactsBefore = app.getDbHelper().getGroupFromDb(groupToAdded.getGroupId()).getPersons();
-            app.goTo().goToHomePage();
-        } else {
-            contactsBefore = app.getDbHelper().getGroupFromDb(groupToAdded.getGroupId()).getPersons();
-        }
         app.getPersonHelper().selectElementById(selectedContact.getId());
-        app.getPersonHelper().selectSituatedGroupFromList(groupToAdded);
+        app.getPersonHelper().deleteContactFromGroupButton();
+        app.goTo().goToHomePage();
 
-        Persons contactsAfter = app.getDbHelper().getGroupFromDb(groupToAdded.getGroupId()).getPersons();
-        assertThat(contactsAfter, equalTo(contactsBefore.withAdded(selectedContact)));
+        Persons afterContacts = app.getDbHelper().getGroupFromDb(situatedGroupIDForRemoveContact).getPersons();
+
+        assertThat(afterContacts, equalTo(beforeContacts.without(selectedContact)));
     }
 
     public Persons checkContacts() {
@@ -80,4 +78,5 @@ public class AddGroupInPerson extends BaseTest {
         app.goTo().goToGroupPage();
         return groupToAdded;
     }
+
 }

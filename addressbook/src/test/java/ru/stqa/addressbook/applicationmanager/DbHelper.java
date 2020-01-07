@@ -40,4 +40,62 @@ public class DbHelper {
         session.close();
         return new Persons(result);
     }
+
+    public PersonData getContactFromDb(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        PersonData result = (PersonData) session.createQuery("from ContactData where id=" + id).getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
+    public GroupData getGroupFromDb(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        GroupData result = (GroupData) session.createQuery("from GroupData where id=" + id).getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
+    public GroupData getGroupWithMaxIDFromDb() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        GroupData result = (GroupData) session.createQuery("from GroupData where id = (select max(group1.id) from GroupData group1)").getSingleResult();
+        session.getTransaction().commit();
+        session.close();
+        return result;
+    }
+
+    public Groups getGroupsOfContactFromDb(int id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<GroupData> result = session.createQuery("from ContactData where group_id=" + id).list();
+        session.getTransaction().commit();
+        session.close();
+        return new Groups(result);
+    }
+
+    public GroupData situatedGroup(Groups groups, PersonData contact) {
+        Groups situatedGroups = contact.getGroups();
+        for (GroupData group : groups) {
+            if (situatedGroups.contains(group)) {
+                continue;
+            } else {
+                return group;
+            }
+        }
+        return null;
+    }
+
+    public GroupData situatedGroupForRemoveContact() {
+        Groups groups = groups();
+        for (GroupData group : groups) {
+            if (group.getPersons().size() > 0) {
+                return group;
+            }
+        }
+        return null;
+    }
 }

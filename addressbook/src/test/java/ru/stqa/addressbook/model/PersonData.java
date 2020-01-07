@@ -244,4 +244,9 @@ public class PersonData {
         this.groups = groups;
         return this;
     }
+
+    public PersonData inGroup(GroupData group) {
+        groups.add(group);
+        return this;
+    }
 }

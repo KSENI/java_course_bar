@@ -131,4 +131,22 @@ public class PersonHelper extends BaseHelper {
         click(By.cssSelector(".left input[name='remove']"));
 
     }
+
+    public void selectElementById(int id) {
+        wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
+    }
+
+    public void selectSituatedGroupFromList(GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(group.getGroupId()));
+        click(By.xpath("//div[@id='content']/form[2]/div[4]/input"));
+    }
+
+    public void contactsFilterByGroup(int id) {
+        wd.findElement(By.xpath("//select[@name='group']")).click();
+        wd.findElement(By.xpath("//option[@value='" + id + "']")).click();
+    }
+
+    public void deleteContactFromGroupButton() {
+        click(By.name("remove"));
+    }
 }

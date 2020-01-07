@@ -45,24 +45,43 @@ public class GroupHelper extends BaseHelper {
     }
 
     public int createGroupAndReturnId(GroupData groupData) {
-        int idCreatedGroup = getMaximumId() + 1;
-        initGroupCreation();
-        fillGroupForm(new GroupData()
-                .withGroupId(idCreatedGroup)
-                .withGroupName(groupData.getGroupName())
-                .withGroupHeader(groupData.getGroupHeader())
-                .withGroupFooter(groupData.getGroupFooter()));
-        submitGroupCreation();
+        int idCreatedGroup = 0;
+        if (getMaximumId() != 0) {
+            idCreatedGroup = getMaximumId() + 1;
+            initGroupCreation();
+            fillGroupForm(new GroupData()
+                    .withGroupId(idCreatedGroup)
+                    .withGroupName(groupData.getGroupName())
+                    .withGroupHeader(groupData.getGroupHeader())
+                    .withGroupFooter(groupData.getGroupFooter()));
+            submitGroupCreation();
+        } else {
+            initGroupCreation();
+            fillGroupForm(new GroupData()
+                    .withGroupName(groupData.getGroupName())
+                    .withGroupHeader(groupData.getGroupHeader())
+                    .withGroupFooter(groupData.getGroupFooter()));
+            submitGroupCreation();
+            returnToGroupsPage();
+            idCreatedGroup = getMaximumId();
+        }
         return idCreatedGroup;
+    }
+
+    public void returnToGroupsPage() {
+        click(By.cssSelector("li.admin"));
     }
 
     public int getMaximumId() {
         List<WebElement> allGroups = wd.findElements(By.cssSelector("input[type='checkbox']"));
         List<Integer> allIds = new ArrayList<>();
-        for (WebElement group : allGroups) {
-            allIds.add(Integer.parseInt(group.getAttribute("value")));
+        if (allGroups.size() > 0) {
+            for (WebElement group : allGroups) {
+                allIds.add(Integer.parseInt(group.getAttribute("value")));
+                return Collections.max(allIds);
+            }
         }
-        return Collections.max(allIds);
+        return 0;
     }
 
     public boolean isHaveGroup() {
@@ -78,21 +97,4 @@ public class GroupHelper extends BaseHelper {
         }
         return groups;
     }
-/*
-    public Groups getAllGroupInformation() {
-        Groups groups = new Groups();
-        List<WebElement> allGroupInTable = wd.findElements(By.cssSelector("span.group"));
-        for (WebElement groupInTable: allGroupInTable) {
-            int id = Integer.parseInt(
-                    groupInTable.findElement(By.cssSelector("input[type='checkbox']")).getAttribute("value"));
-            groupInTable.findElement(By.cssSelector("input[type='checkbox']")).click();
-            click(By.name("edit"));
-            String name = wd.findElement(By.name("group_name")).getAttribute("value");
-            String header = wd.findElement(By.name("group_header")).getAttribute("value");
-            String footer = wd.findElement(By.name("group_footer")).getAttribute("value");
-            groups.add(new GroupData().withGroupId(id).withGroupName(name).withGroupHeader(header).withGroupFooter(footer));
-            wd.findElement(By.xpath("//a[contains(text(),'groups')]")).click();
-        }
-        return groups;
-    } */
 }

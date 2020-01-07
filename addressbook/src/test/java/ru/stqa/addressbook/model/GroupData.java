@@ -25,7 +25,7 @@ public class GroupData {
     @Column(name = "group_footer")
     @Type(type = "text")
     private String groupFooter;
-    @ManyToMany(mappedBy = "groups")
+    @ManyToMany(mappedBy = "groups", fetch = FetchType.EAGER)
     private Set<PersonData> persons = new HashSet<>();
 
     public GroupData() {
