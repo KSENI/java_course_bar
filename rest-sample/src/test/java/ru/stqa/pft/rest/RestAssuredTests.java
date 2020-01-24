@@ -13,11 +13,12 @@ import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
-public class RestAssuredTests {
+public class RestAssuredTests extends TestBase {
 
     @BeforeClass
-    public void init() {
-        RestAssured.authentication = RestAssured.basic("288f44776e7bec4bf44fdfeb1e646490", "");
+    public void init() throws IOException {
+        initProperties();
+        RestAssured.authentication = RestAssured.basic(getProperty("loginUsername"), getProperty("password"));
     }
 
     @Test
@@ -31,7 +32,7 @@ public class RestAssuredTests {
     }
 
     private Set<Issue> getIssues() throws IOException {
-        String json = RestAssured.get("https://bugify.stqa.ru/api/issues.json?page=1&limit=300").asString();
+        String json = RestAssured.get(getProperty("baseUrl") + "?page=1&limit=300").asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
         return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
@@ -42,7 +43,7 @@ public class RestAssuredTests {
 
         String json = RestAssured.given().parameter("subject", newIssue.getSubject())
                 .parameter("description", newIssue.getDescription())
-                .post("https://bugify.stqa.ru/api/issues.json").asString();
+                .post(getProperty("baseUrl")).asString();
 
         JsonElement parsed = new JsonParser().parse(json);
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
