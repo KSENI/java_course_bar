@@ -6,7 +6,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.message.BasicNameValuePair;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -15,11 +14,6 @@ import java.util.Set;
 import static org.testng.Assert.assertEquals;
 
 public class RestTests extends TestBase {
-
-    @BeforeMethod(alwaysRun = true)
-    public void setUp() throws IOException {
-        initProperties();
-    }
 
     @Test
     public void testCreateIssue() throws IOException {
@@ -37,7 +31,7 @@ public class RestTests extends TestBase {
     }
 
     private Set<Issue> getIssues() throws IOException {
-        String json = getExecutor().execute(Request.Get(getProperty("baseUrl") + "?page=1&limit=300")).returnContent().asString();
+        String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json?page=1&limit=300")).returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
         return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
@@ -45,7 +39,7 @@ public class RestTests extends TestBase {
     }
 
     private int createIssue(Issue newIssue) throws IOException {
-        String json = getExecutor().execute(Request.Post(getProperty("baseUrl"))
+        String json = getExecutor().execute(Request.Post("https://bugify.stqa.ru/api/issues.json")
                 .bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),
                         new BasicNameValuePair("description", newIssue.getDescription())))
                 .returnContent().asString();

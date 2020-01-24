@@ -8,27 +8,10 @@ import org.apache.http.client.fluent.Executor;
 import org.apache.http.client.fluent.Request;
 import org.testng.SkipException;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Properties;
 import java.util.Set;
 
 public class TestBase {
-    private final Properties properties;
-
-    public TestBase() {
-        properties = new Properties();
-    }
-
-    public String getProperty(String key) {
-        return properties.getProperty(key);
-    }
-
-    public void initProperties() throws IOException {
-        String target = System.getProperty("target", "local");
-        properties.load(new FileReader(new File(String.format("rest-sample/src/test/resources/%s.properties", target))));
-    }
 
     public void skipIfNotFixed(int issueId) throws IOException {
         if (isIssueOpen(issueId)) {
@@ -45,11 +28,11 @@ public class TestBase {
     }
 
     protected Executor getExecutor() {
-        return Executor.newInstance().auth(getProperty("loginUsername"), getProperty("passwordUsername"));
+        return Executor.newInstance().auth("288f44776e7bec4bf44fdfeb1e646490", "");
     }
 
     private String issueStatus(int issueId) throws IOException {
-        String json = getExecutor().execute(Request.Get(getProperty("baseUrlIssueStatus") + issueId + ".json"))
+        String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues/" + issueId + ".json"))
                 .returnContent().asString();
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
@@ -59,4 +42,3 @@ public class TestBase {
         return issueStatus;
     }
 }
-
