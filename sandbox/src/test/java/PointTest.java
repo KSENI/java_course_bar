@@ -6,7 +6,7 @@ public class PointTest {
     @Test
     public void pointsInOneVerticalLine() {
         double factualDistance = new Point(5, 5).distance(new Point(5, 1));
-        double expectedDistance = 4.00;
+        double expectedDistance = 5.00;
         Assert.assertEquals(expectedDistance,factualDistance);
     }
     @Test
