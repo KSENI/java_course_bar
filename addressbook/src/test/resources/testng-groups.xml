@@ -2,8 +2,9 @@
 
 <suite name="Suite1" verbose="1">
     <test name="Groups">
-        <packages>
-            <package name="ru.stqa.addressbook.tests.groupTests"/>
-        </packages>
+        <classes>
+            <!--            <package name="ru.stqa.addressbook.tests.groupTests"/>-->
+            <class name="ru.stqa.addressbook.tests.groupTests.ModificationGroupTests"/>
+        </classes>
     </test>
 </suite>

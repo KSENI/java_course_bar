@@ -1,0 +1,9 @@
+<list>
+    <ru.stqa.addressbook.model.GroupData>
+        <groupId>0</groupId>
+        <groupName>name 0</groupName>
+        <groupHeader>header 0</groupHeader>
+        <groupFooter>footer 0</groupFooter>
+        <persons/>
+    </ru.stqa.addressbook.model.GroupData>
+</list>

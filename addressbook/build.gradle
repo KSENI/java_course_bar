@@ -19,6 +19,7 @@ dependencies{
     implementation 'org.immutables:gson:2.8.3'
     implementation 'mysql:mysql-connector-java:8.0.18'
     implementation 'org.hibernate:hibernate-core:5.4.10.Final'
+    implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
 }
 
 task testGroups(type: Test) {
