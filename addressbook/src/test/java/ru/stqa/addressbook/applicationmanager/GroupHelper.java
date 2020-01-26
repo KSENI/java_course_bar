@@ -56,6 +56,15 @@ public class GroupHelper extends BaseHelper {
         return idCreatedGroup;
     }
 
+    public void createGroupAnd(GroupData groupData) {
+        initGroupCreation();
+        fillGroupForm(new GroupData()
+                .withGroupName(groupData.getGroupName())
+                .withGroupHeader(groupData.getGroupHeader())
+                .withGroupFooter(groupData.getGroupFooter()));
+        submitGroupCreation();
+    }
+
     public int getMaximumId() {
         List<WebElement> allGroups = wd.findElements(By.cssSelector("input[type='checkbox']"));
         List<Integer> allIds = new ArrayList<>();

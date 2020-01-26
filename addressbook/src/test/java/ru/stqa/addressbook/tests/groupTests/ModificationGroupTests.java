@@ -6,6 +6,8 @@ import ru.stqa.addressbook.model.GroupData;
 import ru.stqa.addressbook.model.Groups;
 import ru.stqa.addressbook.tests.BaseTest;
 
+import java.util.Date;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -13,8 +15,8 @@ public class ModificationGroupTests extends BaseTest {
     @BeforeMethod
     public void checkHaveGroupAndCreateGroup() {
         if (app.getDbHelper().groups().size() == 0) {
-            //app.goTo().goToGroupPage();
-            app.getGroupHelper().createGroupAndReturnId(new GroupData().withGroupName("test1"));
+            app.goTo().goToGroupPage();
+            app.getGroupHelper().createGroupAnd(new GroupData().withGroupName("test2"));
         }
     }
     @Test
@@ -25,8 +27,9 @@ public class ModificationGroupTests extends BaseTest {
         int id = oldGroup.getGroupId();
         app.getGroupHelper().initGroupModification(oldGroup);
 
+        long uniqGuid = new Date().getTime();
         GroupData modifiedGroup = new GroupData().withGroupName("new group name")
-                .withGroupFooter("new group footer").withGroupHeader("new group header").withGroupId(id);
+                .withGroupFooter("new group footer" + uniqGuid).withGroupHeader("new group header").withGroupId(id);
         app.getGroupHelper().fillGroupForm(modifiedGroup);
         app.getGroupHelper().submitGroupModificationAndReturnId();
 
