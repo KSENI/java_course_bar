@@ -3,7 +3,6 @@
 <suite name="Suite1" verbose="1">
     <test name="Groups">
         <classes>
-            <!--            <package name="ru.stqa.addressbook.tests.groupTests"/>-->
             <class name="ru.stqa.addressbook.tests.groupTests.ModificationGroupTests"/>
         </classes>
     </test>
