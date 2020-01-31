@@ -4,6 +4,10 @@
     <test name="Groups">
         <classes>
             <class name="ru.stqa.addressbook.tests.groupTests.ModificationGroupTests"/>
+            <class name="ru.stqa.addressbook.tests.groupTests.CreationGroupTests"/>
+            <class name="ru.stqa.addressbook.tests.groupTests.PersonDeleteInGroups"/>
+            <class name="ru.stqa.addressbook.tests.groupTests.AddGroupInPerson"/>
+            <class name="ru.stqa.addressbook.tests.groupTests.DeleteGroupTest"/>
         </classes>
     </test>
 </suite>

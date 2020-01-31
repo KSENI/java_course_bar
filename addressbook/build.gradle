@@ -8,6 +8,10 @@ dependencies {
     compile 'org.testng:testng:7.0.0'
 }
 
+configurations {
+    agent
+}
+
 dependencies{
     implementation 'org.testng:testng:7.0.0'
     implementation 'org.seleniumhq.selenium:selenium-opera-driver:4.0.0-alpha-3'
@@ -20,6 +24,8 @@ dependencies{
     implementation 'mysql:mysql-connector-java:8.0.18'
     implementation 'org.hibernate:hibernate-core:5.4.10.Final'
     implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
+    agent "org.aspectj:aspectjweaver:1.8.0"
+    implementation "ru.yandex.qatools.allure:allure-testng-adaptor:1.4.0.RC4"
 }
 
 task testGroups(type: Test) {
@@ -32,6 +38,10 @@ task testGroups(type: Test) {
     if (project.hasProperty('target')) {
         systemProperty 'target', "${target}"
     }
+}
+
+testGroups.doFirst {
+    jvmArgs "-javaagent:${configurations.agent.singleFile}"
 }
 
 task testPersons(type: Test) {
