@@ -1,9 +1,11 @@
 package ru.stqa.addressbook.tests;
 
 import org.openqa.selenium.remote.BrowserType;
+
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 import ru.stqa.addressbook.applicationmanager.ApplicationManager;
 
@@ -17,7 +19,7 @@ public class BaseTest {
     @BeforeMethod(alwaysRun = true)
     public void setUp(ITestContext context) throws IOException {
         app.init();
-        context.setAttribute("app","app");
+        context.setAttribute("app",app);
     }
 
     @AfterMethod(alwaysRun = true)

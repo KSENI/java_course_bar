@@ -24,7 +24,7 @@ public class CreatePersonTest extends BaseTest {
     @DataProvider
     public Iterator<Object[]> validPerson() throws IOException {
         System.out.println(new File(".").getAbsoluteFile());
-        String pathToFile = "addressbook/src/test/resources/persons.json";
+        String pathToFile = "src/test/resources/persons.json";
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(pathToFile)))) {
             StringBuilder json = new StringBuilder();
             String line = reader.readLine();

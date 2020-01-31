@@ -1,5 +1,6 @@
 package ru.stqa.addressbook.tests;
 
+import org.jetbrains.annotations.NotNull;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
