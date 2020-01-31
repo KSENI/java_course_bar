@@ -23,7 +23,7 @@ public class CreationGroupTests extends BaseTest {
 
     @DataProvider
     public Iterator<Object[]> validGroups() throws IOException {
-        String pathToFile = "addressbook/src/test/resources/group.json";
+        String pathToFile = "src/test/resources/groups.json";
         try (BufferedReader reader = new BufferedReader(new FileReader(new File(pathToFile)))) {
             StringBuilder json = new StringBuilder();
             String line = reader.readLine();
